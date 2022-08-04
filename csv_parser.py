@@ -1,4 +1,5 @@
 import csv
+import re
 
 #initializes the output file with headers
 outfile = open("parsed_data.csv", 'w')
@@ -11,8 +12,7 @@ with open("logs-insights-results (1).csv", 'r') as infile:
   next(reader) #skips header of file to be read
   for row in reader:
     raw_data = row[0]
-
-    # first_name =
+    first_name = re.compile(r'(?<=\"first_name\"=>\")(.*?)(?=\")').search(raw_data).group()
     # last_name =
     # position =
     # email =
@@ -21,9 +21,9 @@ with open("logs-insights-results (1).csv", 'r') as infile:
     # form_location =
     # status =
     # submitted_on =
-
-
+    # print(raw_data)
+    line = "{}\n".format(first_name)
     # line = "{},{},{},{},{},{},{},{},{}\n".format(first_name, last_name, position, email, mobile, origin, form_location, status, submitted_on)
-    # outfile.write(line)
+    outfile.write(line)
 
 outfile.close
